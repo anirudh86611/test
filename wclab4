@@ -1,0 +1,77 @@
+data = [1 0 1 1 0 1];
+fs = 1000;
+Tb = 1;
+t = 0:1/fs:Tb-1/fs;
+f = 5;
+ask = [];
+
+for bit = data
+    carrier = sin(2 * pi * f * t);
+    modulated = bit * carrier;
+    ask = [ask modulated];
+end
+
+time = 0:1/fs:length(data)*Tb - 1/fs;
+
+figure;
+plot(time, ask);
+title('ASK Modulated Signal for Binary Input 101101');
+xlabel('Time (s)');
+ylabel('Amplitude');
+grid on;
+
+
+======================================
+
+data = [1 0 1 1 0 1];
+fs = 1000;
+Tb = 1;
+t = 0:1/fs:Tb-1/fs;
+f0 = 5;
+f1 = 10;
+fsk = [];
+
+for bit = data
+    if bit == 0
+        freq = f0;
+    else
+        freq = f1;
+    end
+    fsk = [fsk sin(2 * pi * freq * t)];
+end
+
+time = 0:1/fs:length(data)*Tb - 1/fs;
+
+figure;
+plot(time, fsk);
+title('FSK Modulated Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+grid on;
+
+
+=================================
+data = [1 0 1 1 0 1];
+fs = 1000;
+Tb = 1;
+t = 0:1/fs:Tb-1/fs;
+f = 5;
+psk = [];
+
+for bit = data
+    if bit == 0
+        phase = pi;
+    else
+        phase = 0;
+    end
+    psk = [psk sin(2 * pi * f * t + phase)];
+end
+
+time = 0:1/fs:length(data)*Tb - 1/fs;
+
+figure;
+plot(time, psk);
+title('PSK Modulated Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+grid on;
